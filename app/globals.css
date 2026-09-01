@@ -1034,16 +1034,18 @@ button {
   color: var(--text-muted);
 }
 
-/* --- 12. Print Specific CSS (@media print) & PDF Export Mode --- */
+/* --- 12. Optimized PDF Export Mode & Print Specific CSS --- */
 body.pdf-export-mode {
   background: #FFFFFF !important;
   color: #1A202C !important;
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
 }
 
 body.pdf-export-mode .container {
   width: 100% !important;
-  max-width: 800px !important;
-  padding: 0 15px !important;
+  max-width: 780px !important;
+  padding: 0 10px !important;
   margin: 0 auto !important;
 }
 
@@ -1061,38 +1063,120 @@ body.pdf-export-mode .no-print {
   display: none !important;
 }
 
+body.pdf-export-mode .hero-section {
+  padding: 0 0 0.8rem 0 !important;
+  margin-bottom: 0 !important;
+}
+
 body.pdf-export-mode .hero-card {
   background: #FAF8F5 !important;
   border: 1px solid #E2D9CC !important;
   box-shadow: none !important;
-  padding: 1.5rem 1rem !important;
-  margin-bottom: 1.5rem !important;
+  padding: 1rem 1.25rem !important;
+  margin-bottom: 1rem !important;
+  border-radius: 12px !important;
+}
+
+body.pdf-export-mode .bismillah-calligraphy {
+  font-size: 1.5rem !important;
+  margin-bottom: 0.35rem !important;
+  line-height: 1.8 !important;
+}
+
+body.pdf-export-mode .hero-main-title {
+  font-size: 1.4rem !important;
+  margin-bottom: 0.35rem !important;
+  line-height: 1.7 !important;
+}
+
+body.pdf-export-mode .hero-intro-text {
+  font-size: 0.92rem !important;
+  line-height: 1.9 !important;
+  margin: 0 auto 0 auto !important;
+}
+
+body.pdf-export-mode .section-wrapper {
+  margin-bottom: 1.25rem !important;
+}
+
+body.pdf-export-mode .section-header-box {
+  margin-bottom: 0.75rem !important;
+  padding-bottom: 0.35rem !important;
+  break-after: avoid !important;
+  page-break-after: avoid !important;
+  break-inside: avoid !important;
+  page-break-inside: avoid !important;
+}
+
+body.pdf-export-mode .section-title {
+  font-size: 1.25rem !important;
+  line-height: 1.6 !important;
+}
+
+body.pdf-export-mode .subsection-header {
+  margin: 1rem 0 0.4rem 0 !important;
+  break-after: avoid !important;
+  page-break-after: avoid !important;
+  break-inside: avoid !important;
+  page-break-inside: avoid !important;
+}
+
+body.pdf-export-mode .subsection-title {
+  font-size: 1.15rem !important;
+}
+
+body.pdf-export-mode .benefit-note-box {
+  margin-bottom: 0.65rem !important;
+  padding: 0.45rem 0.85rem !important;
+  font-size: 0.88rem !important;
+  line-height: 1.8 !important;
+  break-after: avoid !important;
+  page-break-after: avoid !important;
+  break-inside: avoid !important;
+  page-break-inside: avoid !important;
 }
 
 body.pdf-export-mode .methodology-grid,
 body.pdf-export-mode .measures-grid {
   display: flex !important;
   flex-direction: column !important;
-  gap: 1rem !important;
+  gap: 0.75rem !important;
+  margin-bottom: 0.75rem !important;
 }
 
 body.pdf-export-mode .step-card,
 body.pdf-export-mode .ruqyah-card,
-body.pdf-export-mode .measure-card {
+body.pdf-export-mode .measure-card,
+body.pdf-export-mode .pdf-keep-together {
   width: 100% !important;
   box-sizing: border-box !important;
   background: #FFFFFF !important;
   border: 1px solid #D8D1C5 !important;
+  border-radius: 10px !important;
   box-shadow: none !important;
-  margin-bottom: 1rem !important;
+  margin-bottom: 0.75rem !important;
+  padding: 0.85rem 1rem !important;
   page-break-inside: avoid !important;
   break-inside: avoid !important;
+}
+
+body.pdf-export-mode .card-header-bar {
+  margin-bottom: 0.5rem !important;
+  padding-bottom: 0.35rem !important;
+}
+
+body.pdf-export-mode .card-title {
+  font-size: 1.1rem !important;
+  line-height: 1.5 !important;
 }
 
 body.pdf-export-mode .arabic-verse-container {
   background: #F8F5EE !important;
   border: 1px solid #DFD5C3 !important;
   border-right: 4px solid #C59B27 !important;
+  border-radius: 8px !important;
+  padding: 0.75rem 0.95rem !important;
+  margin-bottom: 0.55rem !important;
   page-break-inside: avoid !important;
   break-inside: avoid !important;
 }
@@ -1100,12 +1184,55 @@ body.pdf-export-mode .arabic-verse-container {
 body.pdf-export-mode .arabic-text {
   color: #0F2E22 !important;
   font-size: 1.45rem !important;
-  line-height: 2.3 !important;
+  line-height: 2.2 !important;
+}
+
+body.pdf-export-mode .translation-container {
+  margin-bottom: 0.45rem !important;
+  padding: 0 !important;
 }
 
 body.pdf-export-mode .translation-text {
   color: #2D3748 !important;
-  font-size: 1rem !important;
+  font-size: 0.95rem !important;
+  line-height: 1.95 !important;
+}
+
+body.pdf-export-mode .card-footer-bar {
+  padding-top: 0.4rem !important;
+  margin-top: 0.2rem !important;
+}
+
+body.pdf-export-mode .step-header {
+  margin-bottom: 0.45rem !important;
+}
+
+body.pdf-export-mode .step-body {
+  font-size: 0.95rem !important;
+  line-height: 1.95 !important;
+}
+
+body.pdf-export-mode .step-reference {
+  margin-top: 0.5rem !important;
+  padding-top: 0.45rem !important;
+  font-size: 0.82rem !important;
+}
+
+body.pdf-export-mode .measure-card-title {
+  margin-bottom: 0.35rem !important;
+  font-size: 1.05rem !important;
+}
+
+body.pdf-export-mode .measure-card-body {
+  font-size: 0.95rem !important;
+  line-height: 1.95 !important;
+}
+
+body.pdf-export-mode .app-footer {
+  margin-top: 1.25rem !important;
+  padding: 1.25rem 0 0.85rem 0 !important;
+  page-break-inside: avoid !important;
+  break-inside: avoid !important;
 }
 
 @media print {
@@ -1140,32 +1267,45 @@ body.pdf-export-mode .translation-text {
     margin: 0 !important;
   }
 
+  .hero-section {
+    padding: 0 0 1rem 0 !important;
+  }
+
   .hero-card {
     background: #FAF8F5 !important;
     border: 1px solid #CCCCCC !important;
     box-shadow: none !important;
     padding: 1.2rem !important;
-    margin-bottom: 1.5rem !important;
+    margin-bottom: 1.2rem !important;
   }
 
   .bismillah-calligraphy {
     color: #10664F !important;
   }
 
+  .section-header-box,
+  .subsection-header,
+  .benefit-note-box {
+    break-after: avoid !important;
+    page-break-after: avoid !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
   .methodology-grid,
   .measures-grid {
     display: flex !important;
     flex-direction: column !important;
-    gap: 1rem !important;
+    gap: 0.85rem !important;
   }
 
-  .ruqyah-card, .step-card, .measure-card {
+  .ruqyah-card, .step-card, .measure-card, .pdf-keep-together {
     width: 100% !important;
     box-sizing: border-box !important;
     background: #FFFFFF !important;
     border: 1px solid #CCCCCC !important;
     box-shadow: none !important;
-    margin-bottom: 1.2rem !important;
+    margin-bottom: 0.85rem !important;
     page-break-inside: avoid !important;
     break-inside: avoid !important;
   }

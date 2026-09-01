@@ -7,8 +7,6 @@ import {
   propheticDuas,
   spiritualMeasures,
   RuqyahItem,
-  StepItem,
-  MeasureItem,
 } from "./data/ruqyahData";
 
 /* ==========================================================================
@@ -216,7 +214,7 @@ export default function RuqyahApp() {
     }
   };
 
-  // PDF Export Generation via html2pdf.js
+  // PDF Export Generation via html2pdf.js with Flawless Pagination
   const handleExportPdf = async () => {
     const element = document.getElementById("printable-ruqyah-manual");
     if (!element) return;
@@ -242,7 +240,7 @@ export default function RuqyahApp() {
     window.scrollTo(0, 0);
     document.body.classList.add("pdf-export-mode");
 
-    await new Promise((resolve) => setTimeout(resolve, 300));
+    await new Promise((resolve) => setTimeout(resolve, 400));
 
     const opt = {
       margin: [10, 10, 10, 10],
@@ -262,7 +260,14 @@ export default function RuqyahApp() {
         orientation: "portrait",
       },
       pagebreak: {
-        mode: ["avoid-all", "css", "legacy"],
+        mode: ["css", "legacy"],
+        avoid: [
+          ".ruqyah-card",
+          ".step-card",
+          ".measure-card",
+          ".pdf-keep-together",
+          ".app-footer",
+        ],
       },
     };
 
@@ -716,19 +721,48 @@ export default function RuqyahApp() {
               const currentCount = counts[item.id] || 0;
               const isCompleted = currentCount >= item.targetCount;
 
-              return (
-                <React.Fragment key={item.id}>
-                  {item.subsectionHeader && (
-                    <div className="subsection-header">
-                      <h3 className="subsection-title">{item.subsectionHeader}</h3>
+              const cardContent = (
+                <article className="ruqyah-card" data-target={item.targetCount}>
+                  <div className="card-header-bar">
+                    <div className="card-title-meta">
+                      <span className="card-number-tag">{item.cardNum}</span>
+                      <h3 className="card-title">{item.title}</h3>
+                      <span className="card-reference-badge">{item.reference}</span>
                     </div>
-                  )}
+                    <div className="card-actions-top no-print">
+                      <button
+                        className="card-action-btn copy-card-btn"
+                        title="متن کاپی کریں"
+                        aria-label="کاپی کریں"
+                        onClick={() => handleCopy(item)}
+                      >
+                        <svg
+                          width="15"
+                          height="15"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                        >
+                          <rect
+                            x="9"
+                            y="9"
+                            width="13"
+                            height="13"
+                            rx="2"
+                            ry="2"
+                          ></rect>
+                          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
 
-                  {item.subsectionNote && (
+                  {item.note && (
                     <div className="benefit-note-box">
                       <svg
-                        width="20"
-                        height="20"
+                        width="18"
+                        height="18"
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
@@ -738,51 +772,80 @@ export default function RuqyahApp() {
                         <line x1="12" y1="16" x2="12" y2="12"></line>
                         <line x1="12" y1="8" x2="12.01" y2="8"></line>
                       </svg>
-                      <span>({item.subsectionNote})</span>
+                      <span>{item.note}</span>
                     </div>
                   )}
 
-                  <article className="ruqyah-card" data-target={item.targetCount}>
-                    <div className="card-header-bar">
-                      <div className="card-title-meta">
-                        <span className="card-number-tag">{item.cardNum}</span>
-                        <h3 className="card-title">{item.title}</h3>
-                        <span className="card-reference-badge">{item.reference}</span>
-                      </div>
-                      <div className="card-actions-top no-print">
-                        <button
-                          className="card-action-btn copy-card-btn"
-                          title="متن کاپی کریں"
-                          aria-label="کاپی کریں"
-                          onClick={() => handleCopy(item)}
-                        >
-                          <svg
-                            width="15"
-                            height="15"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                          >
-                            <rect
-                              x="9"
-                              y="9"
-                              width="13"
-                              height="13"
-                              rx="2"
-                              ry="2"
-                            ></rect>
-                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                          </svg>
-                        </button>
-                      </div>
-                    </div>
+                  <div className="arabic-verse-container">
+                    <p className="arabic-text">{item.arabic}</p>
+                  </div>
 
-                    {item.note && (
+                  <div className="translation-container">
+                    <span className="translation-label">اردو ترجمہ:</span>
+                    <p className="translation-text">&ldquo;{item.translation}&rdquo;</p>
+                  </div>
+
+                  <div className="card-footer-bar">
+                    <div className="target-repeat-info">
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                      >
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                      </svg>
+                      <span>
+                        مقررہ تعداد: <strong>{item.targetLabel}</strong>
+                      </span>
+                    </div>
+                    <div className="counter-interactive-group no-print">
+                      <button
+                        className={`tasbeeh-btn ${isCompleted ? "completed" : ""}`}
+                        aria-label="تسبیح کاؤنٹر"
+                        onClick={() => handleCounterClick(item)}
+                      >
+                        <span className="current-count">{currentCount}</span> /{" "}
+                        <span>{item.targetCount}</span> مرتبہ
+                      </button>
+                      <button
+                        className="counter-reset-btn"
+                        title="کاؤنٹر ری سیٹ کریں"
+                        aria-label="ری سیٹ"
+                        onClick={() => handleCounterReset(item.id)}
+                      >
+                        <svg
+                          width="14"
+                          height="14"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                        >
+                          <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                          <path d="M3 3v5h5"></path>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </article>
+              );
+
+              // If this item begins a new subsection, wrap header + note + card in a unbreakable block
+              if (item.subsectionHeader) {
+                return (
+                  <div key={item.id} className="pdf-keep-together">
+                    <div className="subsection-header">
+                      <h3 className="subsection-title">{item.subsectionHeader}</h3>
+                    </div>
+                    {item.subsectionNote && (
                       <div className="benefit-note-box">
                         <svg
-                          width="18"
-                          height="18"
+                          width="20"
+                          height="20"
                           viewBox="0 0 24 24"
                           fill="none"
                           stroke="currentColor"
@@ -792,68 +855,15 @@ export default function RuqyahApp() {
                           <line x1="12" y1="16" x2="12" y2="12"></line>
                           <line x1="12" y1="8" x2="12.01" y2="8"></line>
                         </svg>
-                        <span>{item.note}</span>
+                        <span>({item.subsectionNote})</span>
                       </div>
                     )}
+                    {cardContent}
+                  </div>
+                );
+              }
 
-                    <div className="arabic-verse-container">
-                      <p className="arabic-text">{item.arabic}</p>
-                    </div>
-
-                    <div className="translation-container">
-                      <span className="translation-label">اردو ترجمہ:</span>
-                      <p className="translation-text">&ldquo;{item.translation}&rdquo;</p>
-                    </div>
-
-                    <div className="card-footer-bar">
-                      <div className="target-repeat-info">
-                        <svg
-                          width="16"
-                          height="16"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                        >
-                          <circle cx="12" cy="12" r="10"></circle>
-                          <polyline points="12 6 12 12 16 14"></polyline>
-                        </svg>
-                        <span>
-                          مقررہ تعداد: <strong>{item.targetLabel}</strong>
-                        </span>
-                      </div>
-                      <div className="counter-interactive-group no-print">
-                        <button
-                          className={`tasbeeh-btn ${isCompleted ? "completed" : ""}`}
-                          aria-label="تسبیح کاؤنٹر"
-                          onClick={() => handleCounterClick(item)}
-                        >
-                          <span className="current-count">{currentCount}</span> /{" "}
-                          <span>{item.targetCount}</span> مرتبہ
-                        </button>
-                        <button
-                          className="counter-reset-btn"
-                          title="کاؤنٹر ری سیٹ کریں"
-                          aria-label="ری سیٹ"
-                          onClick={() => handleCounterReset(item.id)}
-                        >
-                          <svg
-                            width="14"
-                            height="14"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                          >
-                            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
-                            <path d="M3 3v5h5"></path>
-                          </svg>
-                        </button>
-                      </div>
-                    </div>
-                  </article>
-                </React.Fragment>
-              );
+              return <React.Fragment key={item.id}>{cardContent}</React.Fragment>;
             })}
           </section>
         )}
