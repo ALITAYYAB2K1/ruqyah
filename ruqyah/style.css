@@ -1,0 +1,1233 @@
+/* ==========================================================================
+   الرقیۃ الشرعیۃ (Ruqyah Shariah) - Master Stylesheet
+   Specialized RTL Typography, Soothing Dual-Tone Palette & Interactive UI
+   ========================================================================== */
+
+/* --- 1. CSS Variables & Theme Definitions --- */
+:root {
+  /* Font Families */
+  --font-urdu: 'Noto Nastaliq Urdu', 'Gulzar', 'Jameel Noori Nastaleeq', 'Urdu Typesetting', serif;
+  --font-arabic: 'Amiri', 'Scheherazade New', 'Traditional Arabic', serif;
+  --font-ui: 'Noto Sans Arabic', 'Outfit', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Font Scale (Dynamically altered via JS) */
+  --font-scale: 1;
+
+  /* Base Spacing & Transitions */
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+
+  /* Common Accents */
+  --color-emerald-50: #ECFDF5;
+  --color-emerald-100: #D1FAE5;
+  --color-emerald-500: #10B981;
+  --color-emerald-600: #059669;
+  --color-emerald-700: #047857;
+  --color-emerald-800: #065F46;
+
+  --color-gold-100: #FEF3C7;
+  --color-gold-300: #FCD34D;
+  --color-gold-500: #D97706;
+  --color-gold-600: #B45309;
+  --color-gold-700: #92400E;
+  --color-gold-accent: #C59B27;
+}
+
+/* --- LIGHT THEME (Warm Parchment / Mus'haf Heritage) --- */
+:root, [data-theme="light"] {
+  --bg-app: #F7F4EC;
+  --bg-header: rgba(247, 244, 236, 0.92);
+  --bg-card: #FFFFFF;
+  --bg-card-subtle: #FDFBF7;
+  --bg-card-hover: #FCFAF4;
+  --bg-arabic-block: #FAF6ED;
+  --bg-tag: #F0EAE1;
+  --bg-badge-count: #EAE3D2;
+  --bg-badge-completed: #D1FAE5;
+  --text-badge-completed: #065F46;
+
+  --text-main: #242E38;
+  --text-muted: #5A6A7E;
+  --text-arabic: #12372A;
+  --text-heading: #1B3B2B;
+  --text-gold: #9E6B05;
+  --text-emerald: #136F49;
+
+  --border-subtle: #E8E0D0;
+  --border-card: #E4DAC6;
+  --border-arabic: #DFD2B8;
+  --border-gold: #D8BD83;
+  --border-focus: #10B981;
+
+  --shadow-sm: 0 2px 6px rgba(45, 55, 72, 0.04);
+  --shadow-md: 0 6px 18px rgba(45, 55, 72, 0.07);
+  --shadow-lg: 0 12px 30px rgba(45, 55, 72, 0.1);
+  --shadow-card: 0 4px 14px rgba(60, 50, 30, 0.05);
+  --shadow-arabic: inset 0 2px 4px rgba(0, 0, 0, 0.02);
+
+  --ornament-opacity: 0.12;
+  --fab-bg: #1B3B2B;
+  --fab-text: #FAF4EC;
+}
+
+/* --- DARK THEME (Midnight Calm & Muted Slate) --- */
+[data-theme="dark"] {
+  --bg-app: #0F172A;
+  --bg-header: rgba(15, 23, 42, 0.92);
+  --bg-card: #1E293B;
+  --bg-card-subtle: #162032;
+  --bg-card-hover: #243248;
+  --bg-arabic-block: #152238;
+  --bg-tag: #28374F;
+  --bg-badge-count: #2A3B54;
+  --bg-badge-completed: #064E3B;
+  --text-badge-completed: #6EE7B7;
+
+  --text-main: #E2E8F0;
+  --text-muted: #94A3B8;
+  --text-arabic: #A7F3D0;
+  --text-heading: #F8FAFC;
+  --text-gold: #FCD34D;
+  --text-emerald: #34D399;
+
+  --border-subtle: #334155;
+  --border-card: #334155;
+  --border-arabic: #3B506D;
+  --border-gold: #856417;
+  --border-focus: #34D399;
+
+  --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 6px 18px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 12px 30px rgba(0, 0, 0, 0.5);
+  --shadow-card: 0 4px 14px rgba(0, 0, 0, 0.25);
+  --shadow-arabic: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+
+  --ornament-opacity: 0.25;
+  --fab-bg: #34D399;
+  --fab-text: #0F172A;
+}
+
+/* --- 2. Global Resets & Typography --- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: calc(16px * var(--font-scale));
+  scroll-behavior: smooth;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  direction: rtl;
+  text-align: right;
+  font-family: var(--font-urdu);
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  line-height: 2.1;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Base Headings & Nastaliq Fine-Tuning */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-urdu);
+  color: var(--text-heading);
+  font-weight: 700;
+  line-height: 2.2;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: var(--font-ui);
+  cursor: pointer;
+  border: none;
+  background: none;
+  transition: var(--transition-smooth);
+}
+
+/* --- 3. Layout & Containers --- */
+.container {
+  width: 100%;
+  max-width: 1050px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+/* --- 4. Navigation & App Header --- */
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: var(--bg-header);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-subtle);
+  transition: var(--transition-smooth);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 0;
+  gap: 1rem;
+}
+
+.brand-section {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.brand-logo-icon {
+  width: 44px;
+  height: 44px;
+  background: linear-gradient(135deg, var(--color-emerald-700), var(--color-emerald-500));
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  box-shadow: 0 4px 10px rgba(16, 185, 129, 0.25);
+}
+
+.brand-logo-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.brand-titles {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-main-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-heading);
+  line-height: 1.6;
+}
+
+.brand-subtitle {
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+}
+
+/* Header Action Controls */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.85rem;
+  border-radius: var(--radius-md);
+  background: var(--bg-card);
+  color: var(--text-main);
+  border: 1px solid var(--border-subtle);
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  font-weight: 500;
+  box-shadow: var(--shadow-sm);
+}
+
+.action-btn:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-gold);
+  transform: translateY(-1px);
+}
+
+.action-btn.icon-only {
+  width: 38px;
+  height: 38px;
+  padding: 0;
+}
+
+.action-btn.btn-primary {
+  background: linear-gradient(135deg, var(--color-emerald-700), var(--color-emerald-600));
+  color: #FFFFFF;
+  border: none;
+  box-shadow: 0 4px 12px rgba(5, 150, 105, 0.25);
+}
+
+.action-btn.btn-primary:hover {
+  background: linear-gradient(135deg, var(--color-emerald-800), var(--color-emerald-700));
+  box-shadow: 0 6px 16px rgba(5, 150, 105, 0.35);
+}
+
+/* Font Size Control Pill */
+.font-scale-controls {
+  display: flex;
+  align-items: center;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 2px;
+}
+
+.font-scale-btn {
+  padding: 0.3rem 0.6rem;
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  border-radius: var(--radius-sm);
+}
+
+.font-scale-btn:hover {
+  color: var(--text-main);
+  background: var(--bg-tag);
+}
+
+/* Quick Navigation Bar */
+.category-nav-wrapper {
+  border-top: 1px solid var(--border-subtle);
+  background: var(--bg-card-subtle);
+  padding: 0.5rem 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.category-nav-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.category-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  white-space: nowrap;
+}
+
+.nav-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.9rem;
+  border-radius: var(--radius-full);
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  background: transparent;
+  border: 1px solid transparent;
+  transition: var(--transition-smooth);
+}
+
+.nav-pill:hover {
+  color: var(--text-main);
+  background: var(--bg-tag);
+}
+
+.nav-pill.active {
+  color: var(--text-emerald);
+  background: var(--bg-card);
+  border-color: var(--border-gold);
+  font-weight: 600;
+  box-shadow: var(--shadow-sm);
+}
+
+/* --- 5. Hero Banner Section --- */
+.hero-section {
+  position: relative;
+  padding: 2.5rem 0 2rem 0;
+  text-align: center;
+  overflow: hidden;
+}
+
+.hero-card {
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem 1.75rem;
+  box-shadow: var(--shadow-card);
+  background-image: radial-gradient(circle at 50% 0%, var(--bg-card-subtle) 0%, var(--bg-card) 75%);
+}
+
+.islamic-ornament-corner {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  opacity: var(--ornament-opacity);
+  pointer-events: none;
+}
+
+.corner-top-right { top: 10px; right: 10px; }
+.corner-top-left { top: 10px; left: 10px; transform: scaleX(-1); }
+.corner-bottom-right { bottom: 10px; right: 10px; transform: scaleY(-1); }
+.corner-bottom-left { bottom: 10px; left: 10px; transform: scale(-1, -1); }
+
+.bismillah-calligraphy {
+  font-family: var(--font-arabic);
+  font-size: 1.85rem;
+  font-weight: 700;
+  color: var(--text-emerald);
+  margin-bottom: 0.75rem;
+  line-height: 2.2;
+}
+
+.hero-main-title {
+  font-size: 1.85rem;
+  color: var(--text-heading);
+  margin-bottom: 0.75rem;
+  font-weight: 700;
+  line-height: 2.1;
+}
+
+.hero-intro-text {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  max-width: 800px;
+  margin: 0 auto 1.5rem auto;
+  line-height: 2.2;
+}
+
+/* Stats Badges in Hero */
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.stat-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 1rem;
+  border-radius: var(--radius-full);
+  background: var(--bg-tag);
+  border: 1px solid var(--border-subtle);
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  color: var(--text-main);
+  font-weight: 500;
+}
+
+.stat-chip svg {
+  color: var(--text-emerald);
+}
+
+/* Search Bar */
+.search-container {
+  margin: 1.5rem auto 0 auto;
+  max-width: 600px;
+  position: relative;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.75rem 2.8rem 0.75rem 1rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-card);
+  background: var(--bg-card);
+  color: var(--text-main);
+  font-family: var(--font-urdu);
+  font-size: 1rem;
+  box-shadow: var(--shadow-sm);
+  outline: none;
+  transition: var(--transition-smooth);
+}
+
+.search-input:focus {
+  border-color: var(--color-emerald-500);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+}
+
+.search-icon {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+/* --- 6. Section Headers --- */
+.section-wrapper {
+  margin-bottom: 3.5rem;
+}
+
+.section-header-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--border-subtle);
+  position: relative;
+}
+
+.section-header-box::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  right: 0;
+  width: 90px;
+  height: 2px;
+  background: linear-gradient(to left, var(--color-gold-accent), transparent);
+}
+
+.section-title-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.section-icon-badge {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-md);
+  background: var(--bg-tag);
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-emerald);
+}
+
+.section-icon-badge svg {
+  width: 20px;
+  height: 20px;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  color: var(--text-heading);
+  line-height: 1.8;
+}
+
+.section-badge-counter {
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  padding: 0.2rem 0.65rem;
+  background: var(--bg-tag);
+  border-radius: var(--radius-full);
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+/* Sub-section headings */
+.subsection-header {
+  margin: 2rem 0 1rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.subsection-title {
+  font-size: 1.25rem;
+  color: var(--text-emerald);
+  font-weight: 700;
+}
+
+/* --- 7. Cards & Ruqyah Blocks --- */
+.ruqyah-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow-card);
+  transition: var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+.ruqyah-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--border-gold);
+}
+
+/* Card Header Bar */
+.card-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px dashed var(--border-subtle);
+}
+
+.card-title-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.card-number-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 28px;
+  padding: 0 6px;
+  background: var(--bg-tag);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-emerald);
+  border: 1px solid var(--border-subtle);
+}
+
+.card-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-heading);
+  line-height: 1.8;
+}
+
+.card-reference-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-full);
+  background: var(--bg-tag);
+  color: var(--text-muted);
+  border: 1px solid var(--border-subtle);
+}
+
+.card-actions-top {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.card-action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-md);
+  background: var(--bg-card-subtle);
+  color: var(--text-muted);
+  border: 1px solid var(--border-subtle);
+  font-size: 0.8rem;
+}
+
+.card-action-btn:hover {
+  color: var(--text-main);
+  background: var(--bg-tag);
+  border-color: var(--border-gold);
+}
+
+/* Arabic Verse Box (Mus'haf Style) */
+.arabic-verse-container {
+  position: relative;
+  background: var(--bg-arabic-block);
+  border: 1px solid var(--border-arabic);
+  border-right: 4px solid var(--color-gold-accent);
+  border-radius: var(--radius-md);
+  padding: 1.5rem 1.25rem;
+  margin-bottom: 1.25rem;
+  box-shadow: var(--shadow-arabic);
+}
+
+.arabic-text {
+  font-family: var(--font-arabic);
+  font-size: 1.6rem;
+  line-height: 2.3;
+  color: var(--text-arabic);
+  text-align: justify;
+  text-justify: inter-word;
+  word-spacing: 0.1em;
+  font-weight: 600;
+  direction: rtl;
+}
+
+/* Urdu Translation Area */
+.translation-container {
+  margin-bottom: 1.25rem;
+  padding: 0 0.5rem;
+}
+
+.translation-label {
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-gold);
+  margin-bottom: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.translation-text {
+  font-family: var(--font-urdu);
+  font-size: 1.05rem;
+  color: var(--text-main);
+  line-height: 2.2;
+}
+
+/* Benefit / Context Note Callout */
+.benefit-note-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  background: var(--bg-card-subtle);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 0.75rem 1rem;
+  margin-bottom: 1.25rem;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 2.0;
+}
+
+.benefit-note-box svg {
+  flex-shrink: 0;
+  color: var(--color-emerald-500);
+  margin-top: 0.4rem;
+}
+
+/* Card Bottom Bar & Interactive Counter */
+.card-footer-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.target-repeat-info {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.counter-interactive-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tasbeeh-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.45rem 1.1rem;
+  border-radius: var(--radius-full);
+  background: var(--bg-badge-count);
+  color: var(--text-main);
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: 1px solid var(--border-subtle);
+  user-select: none;
+  touch-action: manipulation;
+  transition: var(--transition-smooth);
+}
+
+.tasbeeh-btn:hover {
+  transform: scale(1.03);
+  border-color: var(--color-emerald-500);
+}
+
+.tasbeeh-btn:active {
+  transform: scale(0.97);
+}
+
+.tasbeeh-btn.completed {
+  background: var(--bg-badge-completed);
+  color: var(--text-badge-completed);
+  border-color: var(--color-emerald-500);
+}
+
+.counter-reset-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid transparent;
+}
+
+.counter-reset-btn:hover {
+  color: var(--text-main);
+  background: var(--bg-tag);
+  border-color: var(--border-subtle);
+}
+
+/* --- 8. Methodology Step Cards (Special Layout) --- */
+.methodology-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.step-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-card);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: var(--transition-smooth);
+}
+
+.step-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--border-gold);
+}
+
+.step-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.step-num-badge {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, var(--color-gold-600), var(--color-gold-500));
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.step-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-heading);
+  line-height: 1.8;
+}
+
+.step-body {
+  font-size: 1.02rem;
+  color: var(--text-main);
+  line-height: 2.1;
+  flex-grow: 1;
+}
+
+.step-reference {
+  margin-top: 0.85rem;
+  padding-top: 0.75rem;
+  border-top: 1px dashed var(--border-subtle);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-family: var(--font-ui);
+}
+
+/* --- 9. Additional Spiritual Measures Section --- */
+.measures-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+
+.measure-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-card);
+  border-top: 4px solid var(--color-emerald-600);
+}
+
+.measure-card-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-heading);
+  margin-bottom: 0.75rem;
+}
+
+.measure-card-body {
+  font-size: 1rem;
+  color: var(--text-main);
+  line-height: 2.1;
+}
+
+/* --- 10. Floating Utilities & Toast --- */
+.floating-actions-container {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  z-index: 990;
+}
+
+.fab-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-full);
+  background: var(--fab-bg);
+  color: var(--fab-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-lg);
+  transition: var(--transition-smooth);
+}
+
+.fab-btn:hover {
+  transform: translateY(-3px) scale(1.05);
+}
+
+/* Toast Notification */
+.toast-alert {
+  position: fixed;
+  bottom: 2rem;
+  right: 50%;
+  transform: translateX(50%) translateY(100px);
+  background: var(--bg-card);
+  color: var(--text-main);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-full);
+  padding: 0.6rem 1.4rem;
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+  font-weight: 500;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 2000;
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28), opacity 0.3s ease;
+}
+
+.toast-alert.show {
+  opacity: 1;
+  transform: translateX(50%) translateY(0);
+  pointer-events: auto;
+}
+
+/* PDF Generation Overlay */
+.pdf-loading-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 3000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.pdf-loading-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid rgba(255, 255, 255, 0.2);
+  border-top-color: var(--color-emerald-500);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-bottom: 1rem;
+}
+
+.pdf-loading-text {
+  font-family: var(--font-urdu);
+  font-size: 1.2rem;
+  color: #FFFFFF;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* --- 11. Footer --- */
+.app-footer {
+  margin-top: 4rem;
+  padding: 3rem 0 2rem 0;
+  background: var(--bg-card-subtle);
+  border-top: 1px solid var(--border-subtle);
+  text-align: center;
+}
+
+.footer-dua {
+  font-family: var(--font-urdu);
+  font-size: 1.15rem;
+  color: var(--text-emerald);
+  font-weight: 700;
+  margin-bottom: 1rem;
+  line-height: 2.1;
+}
+
+.footer-disclaimer {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  max-width: 680px;
+  margin: 0 auto 1.5rem auto;
+  line-height: 2.0;
+}
+
+.footer-copyright {
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* --- 12. Print Specific CSS (@media print) & PDF Export Mode --- */
+body.pdf-export-mode {
+  background: #FFFFFF !important;
+  color: #1A202C !important;
+}
+
+body.pdf-export-mode .container {
+  width: 100% !important;
+  max-width: 800px !important;
+  padding: 0 15px !important;
+  margin: 0 auto !important;
+}
+
+body.pdf-export-mode .app-header,
+body.pdf-export-mode .category-nav-wrapper,
+body.pdf-export-mode .search-container,
+body.pdf-export-mode .hero-stats,
+body.pdf-export-mode .card-actions-top,
+body.pdf-export-mode .counter-interactive-group,
+body.pdf-export-mode .counter-reset-btn,
+body.pdf-export-mode .floating-actions-container,
+body.pdf-export-mode .toast-alert,
+body.pdf-export-mode .pdf-loading-overlay,
+body.pdf-export-mode .no-print {
+  display: none !important;
+}
+
+body.pdf-export-mode .hero-card {
+  background: #FAF8F5 !important;
+  border: 1px solid #E2D9CC !important;
+  box-shadow: none !important;
+  padding: 1.5rem 1rem !important;
+  margin-bottom: 1.5rem !important;
+}
+
+body.pdf-export-mode .methodology-grid,
+body.pdf-export-mode .measures-grid {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 1rem !important;
+}
+
+body.pdf-export-mode .step-card,
+body.pdf-export-mode .ruqyah-card,
+body.pdf-export-mode .measure-card {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  background: #FFFFFF !important;
+  border: 1px solid #D8D1C5 !important;
+  box-shadow: none !important;
+  margin-bottom: 1rem !important;
+  page-break-inside: avoid !important;
+  break-inside: avoid !important;
+}
+
+body.pdf-export-mode .arabic-verse-container {
+  background: #F8F5EE !important;
+  border: 1px solid #DFD5C3 !important;
+  border-right: 4px solid #C59B27 !important;
+  page-break-inside: avoid !important;
+  break-inside: avoid !important;
+}
+
+body.pdf-export-mode .arabic-text {
+  color: #0F2E22 !important;
+  font-size: 1.45rem !important;
+  line-height: 2.3 !important;
+}
+
+body.pdf-export-mode .translation-text {
+  color: #2D3748 !important;
+  font-size: 1rem !important;
+}
+
+@media print {
+  /* Hide all interactive/web elements */
+  .app-header,
+  .category-nav-wrapper,
+  .search-container,
+  .hero-stats,
+  .card-actions-top,
+  .counter-interactive-group,
+  .counter-reset-btn,
+  .floating-actions-container,
+  .toast-alert,
+  .pdf-loading-overlay,
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    background: #FFFFFF !important;
+    color: #000000 !important;
+    font-size: 11pt !important;
+    line-height: 1.9 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .container {
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 0 10px !important;
+    margin: 0 !important;
+  }
+
+  .hero-card {
+    background: #FAF8F5 !important;
+    border: 1px solid #CCCCCC !important;
+    box-shadow: none !important;
+    padding: 1.2rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+
+  .bismillah-calligraphy {
+    color: #10664F !important;
+  }
+
+  .methodology-grid,
+  .measures-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1rem !important;
+  }
+
+  .ruqyah-card, .step-card, .measure-card {
+    width: 100% !important;
+    box-sizing: border-box !important;
+    background: #FFFFFF !important;
+    border: 1px solid #CCCCCC !important;
+    box-shadow: none !important;
+    margin-bottom: 1.2rem !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  .arabic-verse-container {
+    background: #F9F8F5 !important;
+    border: 1px solid #D8CFC0 !important;
+    border-right: 4px solid #9E7528 !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  .arabic-text {
+    color: #000000 !important;
+    font-size: 14pt !important;
+    line-height: 2.2 !important;
+  }
+
+  .translation-text {
+    color: #222222 !important;
+    font-size: 10.5pt !important;
+  }
+
+  .card-number-tag {
+    background: #EEEEEE !important;
+    color: #000000 !important;
+    border: 1px solid #CCCCCC !important;
+  }
+
+  .target-repeat-info {
+    font-weight: bold;
+    color: #000000 !important;
+  }
+}
+
+/* --- 13. Responsive Styles for Mobile & Tablets --- */
+@media (max-width: 768px) {
+  .header-inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .header-actions {
+    justify-content: space-between;
+    overflow-x: auto;
+  }
+
+  .brand-section {
+    justify-content: center;
+  }
+
+  .hero-card {
+    padding: 1.5rem 1rem;
+  }
+
+  .bismillah-calligraphy {
+    font-size: 1.5rem;
+  }
+
+  .hero-main-title {
+    font-size: 1.5rem;
+  }
+
+  .arabic-text {
+    font-size: 1.35rem;
+    line-height: 2.1;
+  }
+
+  .ruqyah-card {
+    padding: 1.2rem 1rem;
+  }
+
+  .floating-actions-container {
+    bottom: 1rem;
+    left: 1rem;
+  }
+}

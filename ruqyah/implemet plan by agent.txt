@@ -1,0 +1,72 @@
+# Implementation Plan: Comprehensive Islamic Ruqyah RTL Web Application
+
+We will build a responsive, single-page web application in pure HTML, CSS, and JavaScript based on the complete content parsed from `ruqyah.docx`.
+
+## User Review Required
+
+> [!NOTE]
+> The source text from `ruqyah.docx` was successfully parsed and extracted. It contains the complete methodology (including 7 Sidr leaves method), 8 Quranic verse sections (including Ayah al-Kursi, Amanar-Rasul, Sihr-breaking verses, Ayah ash-Shifa, Ayah Karima, Ayah al-Qalam, and the 4 Quls), 13 Authentic Prophetic Duas (with Hadith references), and Additional Spiritual Measures.
+
+> [!TIP]
+> We will enhance the user experience with an interactive **Tasbeeh Counter** on each repetitive card (e.g., 7x, 3x), **Font Size Adjuster**, **Quick Filter / Section Navigation**, **Search**, **Audio Recitation placeholder/read mode**, and a **ligature-safe PDF Export** powered by `html2pdf.js` and dedicated `@media print` styles.
+
+---
+
+## Proposed Architecture & Design
+
+### 1. Typography & Theme System
+- **Fonts**:
+  - Urdu Body & Headings: `Noto Nastaliq Urdu` (Google Fonts) with fallback to `Gulzar`, `Jameel Noori Nastaleeq`, system Arabic/Nastaliq.
+  - Arabic Verses & Duas: `Amiri` and `Scheherazade New` with high Tashkeel precision and line-heights adjusted (2.0 to 2.4) to eliminate clipping.
+  - UI Labels & Numbers: `Outfit` / `Inter` / `Noto Sans Arabic` for crisp counter badges and buttons.
+- **Color Palettes**:
+  - **Light Theme (Warm Parchment / Mus'haf Paper)**: `#FAF7F0` background, `#2D3748` slate charcoal body, emerald/sage green `#1B5E47` and soft metallic gold `#9B783E` accents, cards `#FFFFFF` with warm border `#EADEC7` and soft elevation.
+  - **Dark Theme (Midnight Calm)**: `#0F172A` / `#131B2E` slate night, `#E2E8F0` soft text, `#34D399` sage/emerald highlights, `#F59E0B` warm amber gold, `#1E293B` card backgrounds with subtle borders `#334155`.
+
+### 2. Layout & Sections
+- **Sticky App Bar**:
+  - Title badge with Islamic geometric accent.
+  - Search bar & Section quick-jump tabs (طریقہ کار, قرآنی آیات, مسنون دعائیں, اضافی تدابیر).
+  - Controls: Light/Dark Theme toggle, Font size controls (A- / A+), PDF Export button.
+- **Hero Section**:
+  - Bismillah calligraphic banner, title "الرقیۃ الشرعیۃ — مسنون علاج اور دم کی مکمل گائیڈ", brief explanation of the methodology and spiritual intention.
+- **Section 1: طریقہ کار (Methodology & Practical Steps)**:
+  - 5 interactive cards: Wudu & Preparation, 7 Sidr Leaves method (Ibn Kathir / Ibn Baz reference), Recitation, Nafth (blowing on water/oil), Usage & Massage.
+- **Section 2: قرآنی آیات (Quranic Verses for Ruqyah)**:
+  - 8 distinct sections with 12+ individual ayat cards.
+  - Arabic text styled in Quranic script with gold highlight framing, Urdu translation in clean Nastaliq, repetition badge, and interactive counter.
+- **Section 3: احادیثِ مبارکہ سے مسنون دعائیں (Authentic Prophetic Duas)**:
+  - 13 numbered Dua cards with Sahih Bukhari / Muslim / Abu Dawud references.
+- **Section 4: اضافی روحانی تدابیر (Additional Spiritual Measures)**:
+  - Daily adhkar, Sadaqah, Surah Al-Baqarah recitation at home, and Adhan.
+- **Floating Quick Navigation & Progress indicator**.
+
+### 3. PDF Export Implementation
+- Integrate `html2pdf.js` via CDN.
+- Configured with `html2canvas` (scale: 2 for high-DPI crystal-clear typography) and `jsPDF` (format: A4, orientation: portrait).
+- Optimized `@media print` rules:
+  - Hides non-printable controls (FABs, header buttons, counters).
+  - Uses `break-inside: avoid` / `page-break-inside: avoid` on all cards.
+  - Sets clean margin and black/slate typography with high-contrast borders.
+
+---
+
+## Proposed Files
+
+- [NEW] [index.html](file:///c:/Users/atayy/Desktop/ruqyah/index.html) - Complete single-page app structure with all parsed Urdu/Arabic content and interactive widgets.
+- [NEW] [style.css](file:///c:/Users/atayy/Desktop/ruqyah/style.css) - CSS variables, responsive design, light/dark themes, Nastaliq/Amiri typography, animations, print media styles.
+- [NEW] [app.js](file:///c:/Users/atayy/Desktop/ruqyah/app.js) - Theme toggler (with localStorage), font-size scaler, search/filter logic, interactive repetition counter with vibration/audio tick, and html2pdf generation handler.
+
+---
+
+## Verification Plan
+
+### Manual & Automated Verification
+1. **Local Browser Testing**:
+   - Serve the application locally using a lightweight server or browser preview.
+   - Test RTL flow, Nastaliq line heights, and Tashkeel alignment in both Arabic and Urdu.
+   - Test Light / Dark mode toggling and persistence in `localStorage`.
+   - Test font size increase/decrease buttons.
+   - Test interactive counters (clicking increments counter until target count is reached, displaying a 'مُکمل' completed badge).
+   - Test search filtering for keywords (e.g. "سحر", "بخاری", "الفاتحہ", "شفا").
+   - Test PDF generation button and inspect the generated PDF to confirm no broken ligatures and clean page breaks.
