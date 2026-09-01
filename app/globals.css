@@ -196,19 +196,20 @@ button {
 .brand-logo-icon {
   width: 44px;
   height: 44px;
-  background: linear-gradient(135deg, var(--color-emerald-700), var(--color-emerald-500));
   border-radius: var(--radius-md);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #FFFFFF;
   box-shadow: 0 4px 10px rgba(16, 185, 129, 0.25);
   flex-shrink: 0;
+  overflow: hidden;
 }
 
-.brand-logo-icon svg {
-  width: 24px;
-  height: 24px;
+.brand-logo-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
 }
 
 .brand-titles {
@@ -1034,10 +1035,34 @@ button {
   color: var(--text-muted);
 }
 
-/* --- 12. Optimized PDF Export Mode & Print Specific CSS --- */
-body.pdf-export-mode {
+/* --- 12. Absolute High-Contrast PDF Export Mode & Print Rules --- */
+body.pdf-export-mode,
+[data-theme="dark"] body.pdf-export-mode,
+html[data-theme="dark"] body.pdf-export-mode {
+  --bg-app: #FFFFFF !important;
+  --bg-card: #FFFFFF !important;
+  --bg-card-subtle: #FDFBF7 !important;
+  --bg-card-hover: #FCFAF4 !important;
+  --bg-arabic-block: #FAF6ED !important;
+  --bg-tag: #F0EAE1 !important;
+  --text-main: #242E38 !important;
+  --text-muted: #4A5568 !important;
+  --text-arabic: #12372A !important;
+  --text-heading: #1B3B2B !important;
+  --text-gold: #9E6B05 !important;
+  --text-emerald: #136F49 !important;
+  --border-subtle: #E2D9CC !important;
+  --border-card: #D8D1C5 !important;
+  --border-arabic: #DFD2B8 !important;
+  --border-gold: #D8BD83 !important;
   background: #FFFFFF !important;
   color: #1A202C !important;
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+}
+
+body.pdf-export-mode *,
+[data-theme="dark"] body.pdf-export-mode * {
   -webkit-print-color-adjust: exact !important;
   print-color-adjust: exact !important;
 }
@@ -1078,18 +1103,21 @@ body.pdf-export-mode .hero-card {
 }
 
 body.pdf-export-mode .bismillah-calligraphy {
+  color: #136F49 !important;
   font-size: 1.5rem !important;
   margin-bottom: 0.35rem !important;
   line-height: 1.8 !important;
 }
 
 body.pdf-export-mode .hero-main-title {
+  color: #1B3B2B !important;
   font-size: 1.4rem !important;
   margin-bottom: 0.35rem !important;
   line-height: 1.7 !important;
 }
 
 body.pdf-export-mode .hero-intro-text {
+  color: #4A5568 !important;
   font-size: 0.92rem !important;
   line-height: 1.9 !important;
   margin: 0 auto 0 auto !important;
@@ -1102,6 +1130,7 @@ body.pdf-export-mode .section-wrapper {
 body.pdf-export-mode .section-header-box {
   margin-bottom: 0.75rem !important;
   padding-bottom: 0.35rem !important;
+  border-bottom: 2px solid #E2D9CC !important;
   break-after: avoid !important;
   page-break-after: avoid !important;
   break-inside: avoid !important;
@@ -1109,8 +1138,20 @@ body.pdf-export-mode .section-header-box {
 }
 
 body.pdf-export-mode .section-title {
+  color: #1B3B2B !important;
   font-size: 1.25rem !important;
   line-height: 1.6 !important;
+}
+
+body.pdf-export-mode .section-badge-counter {
+  background: #F0EAE1 !important;
+  color: #4A5568 !important;
+}
+
+body.pdf-export-mode .section-icon-badge {
+  background: #F0EAE1 !important;
+  border-color: #E2D9CC !important;
+  color: #136F49 !important;
 }
 
 body.pdf-export-mode .subsection-header {
@@ -1122,10 +1163,14 @@ body.pdf-export-mode .subsection-header {
 }
 
 body.pdf-export-mode .subsection-title {
+  color: #136F49 !important;
   font-size: 1.15rem !important;
 }
 
 body.pdf-export-mode .benefit-note-box {
+  background: #FDFBF7 !important;
+  border: 1px solid #E2D9CC !important;
+  color: #4A5568 !important;
   margin-bottom: 0.65rem !important;
   padding: 0.45rem 0.85rem !important;
   font-size: 0.88rem !important;
@@ -1160,14 +1205,51 @@ body.pdf-export-mode .pdf-keep-together {
   break-inside: avoid !important;
 }
 
+body.pdf-export-mode .step-num-badge {
+  background: #9E6B05 !important;
+  color: #FFFFFF !important;
+}
+
+body.pdf-export-mode .step-title {
+  color: #1B3B2B !important;
+}
+
+body.pdf-export-mode .step-body {
+  color: #242E38 !important;
+  font-size: 0.95rem !important;
+  line-height: 1.95 !important;
+}
+
+body.pdf-export-mode .step-reference {
+  color: #4A5568 !important;
+  border-top: 1px dashed #E2D9CC !important;
+  margin-top: 0.5rem !important;
+  padding-top: 0.45rem !important;
+  font-size: 0.82rem !important;
+}
+
 body.pdf-export-mode .card-header-bar {
+  border-bottom: 1px dashed #E2D9CC !important;
   margin-bottom: 0.5rem !important;
   padding-bottom: 0.35rem !important;
 }
 
+body.pdf-export-mode .card-number-tag {
+  background: #F0EAE1 !important;
+  color: #136F49 !important;
+  border-color: #D8D1C5 !important;
+}
+
 body.pdf-export-mode .card-title {
+  color: #1B3B2B !important;
   font-size: 1.1rem !important;
   line-height: 1.5 !important;
+}
+
+body.pdf-export-mode .card-reference-badge {
+  background: #F0EAE1 !important;
+  color: #4A5568 !important;
+  border-color: #D8D1C5 !important;
 }
 
 body.pdf-export-mode .arabic-verse-container {
@@ -1192,6 +1274,10 @@ body.pdf-export-mode .translation-container {
   padding: 0 !important;
 }
 
+body.pdf-export-mode .translation-label {
+  color: #9E6B05 !important;
+}
+
 body.pdf-export-mode .translation-text {
   color: #2D3748 !important;
   font-size: 0.95rem !important;
@@ -1199,40 +1285,43 @@ body.pdf-export-mode .translation-text {
 }
 
 body.pdf-export-mode .card-footer-bar {
+  border-top: 1px solid #E2D9CC !important;
   padding-top: 0.4rem !important;
   margin-top: 0.2rem !important;
 }
 
-body.pdf-export-mode .step-header {
-  margin-bottom: 0.45rem !important;
-}
-
-body.pdf-export-mode .step-body {
-  font-size: 0.95rem !important;
-  line-height: 1.95 !important;
-}
-
-body.pdf-export-mode .step-reference {
-  margin-top: 0.5rem !important;
-  padding-top: 0.45rem !important;
-  font-size: 0.82rem !important;
+body.pdf-export-mode .target-repeat-info {
+  color: #4A5568 !important;
 }
 
 body.pdf-export-mode .measure-card-title {
+  color: #1B3B2B !important;
   margin-bottom: 0.35rem !important;
   font-size: 1.05rem !important;
 }
 
 body.pdf-export-mode .measure-card-body {
+  color: #242E38 !important;
   font-size: 0.95rem !important;
   line-height: 1.95 !important;
 }
 
 body.pdf-export-mode .app-footer {
+  background: #FDFBF7 !important;
+  border-top: 1px solid #E2D9CC !important;
   margin-top: 1.25rem !important;
   padding: 1.25rem 0 0.85rem 0 !important;
   page-break-inside: avoid !important;
   break-inside: avoid !important;
+}
+
+body.pdf-export-mode .footer-dua {
+  color: #136F49 !important;
+}
+
+body.pdf-export-mode .footer-disclaimer,
+body.pdf-export-mode .footer-copyright {
+  color: #4A5568 !important;
 }
 
 @media print {

@@ -237,8 +237,12 @@ export default function RuqyahApp() {
 
     setIsPdfGenerating(true);
     const prevScrollY = window.scrollY;
-    window.scrollTo(0, 0);
+    const currentTheme = document.documentElement.getAttribute("data-theme") || "light";
+
+    // Temporarily switch to light theme for crisp, high-contrast Mus'haf paper PDF rendering
+    document.documentElement.setAttribute("data-theme", "light");
     document.body.classList.add("pdf-export-mode");
+    window.scrollTo(0, 0);
 
     await new Promise((resolve) => setTimeout(resolve, 400));
 
@@ -279,6 +283,7 @@ export default function RuqyahApp() {
       window.print();
     } finally {
       document.body.classList.remove("pdf-export-mode");
+      document.documentElement.setAttribute("data-theme", currentTheme);
       window.scrollTo(0, prevScrollY);
       setIsPdfGenerating(false);
     }
