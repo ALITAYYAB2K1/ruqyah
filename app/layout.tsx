@@ -3,6 +3,7 @@ import Script from "next/script";
 import "./globals.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://ruqyah.app"),
   title: "الرقیۃ الشرعیۃ — مسنون علاج اور دم کی مکمل گائیڈ",
   description:
     "سحر، نظرِ بد، گھبراہٹ، جسمانی درد اور تمام بیماریوں سے شفاء کے لیے قرآنی آیات اور مسنون نبوی دعاؤں پر مشتمل جامع الرقیۃ الشرعیۃ گائیڈ۔",
@@ -17,12 +18,18 @@ export const metadata: Metadata = {
     "شفاء"
   ],
   authors: [{ name: "Ruqyah Shariah Guide" }],
+  icons: {
+    icon: "/icon.jpg",
+    shortcut: "/icon.jpg",
+    apple: "/icon.jpg",
+  },
   openGraph: {
     title: "الرقیۃ الشرعیۃ — مسنون علاج اور دم کی مکمل گائیڈ",
     description:
       "سحر، نظرِ بد، گھبراہٹ، جسمانی درد اور تمام بیماریوں سے شفاء کے لیے قرآنی آیات اور مسنون نبوی دعاؤں پر مشتمل جامع گائیڈ۔",
     type: "website",
     locale: "ur_PK",
+    images: ["/icon.jpg"],
   },
 };
 
@@ -43,6 +50,8 @@ export default function RootLayout({
   return (
     <html lang="ur" dir="rtl" data-theme="light" suppressHydrationWarning>
       <head>
+        <link rel="icon" href="/icon.jpg" />
+        <link rel="apple-touch-icon" href="/icon.jpg" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"

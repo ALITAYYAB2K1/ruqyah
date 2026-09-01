@@ -345,19 +345,19 @@ export default function RuqyahApp() {
           <div className="header-inner">
             {/* Brand / App Logo */}
             <div className="brand-section">
-              <div className="brand-logo-icon" aria-hidden="true">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-                  <circle cx="12" cy="10" r="3"></circle>
-                </svg>
+              <div className="brand-logo-icon" aria-hidden="true" style={{ overflow: "hidden", padding: 0 }}>
+                <img
+                  src="/icon.jpg"
+                  alt="الرقیۃ الشرعیۃ"
+                  width={44}
+                  height={44}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    borderRadius: "inherit",
+                  }}
+                />
               </div>
               <div className="brand-titles">
                 <h1 className="brand-main-title">الرقیۃ الشرعیۃ</h1>
